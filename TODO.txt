@@ -1,0 +1,21 @@
+TODO
+====
+
++- Note Entry
+	+- Add note to file
+	+- Create metadata about creation date / time
++- View
+	+- View a single entry
+	+- View multiple entries in order
+- Search
+	+- Find all notes matching one search term
+	- Find all notes matching multiple search terms
+- Metadata
+	+- Create metadata entries
+	+- Search metadata entries
+	- Define other bits of metadata that should exist
+- Tags
+	- Create tag entries
+	- Search tags
+- Edit
+	- Line editing
