@@ -99,4 +99,4 @@ if {[string match [lindex $argv 0] "search_metadata_by_index"]} {
 	puts "Enter note ID to find all related metadata (space separated):"
 	gets stdin input
 	nkonotes_search_metadata_by_index $input
-HELLO NADIA}
+}
