@@ -15,7 +15,7 @@ TODO
 	+- Search metadata entries
 	- Define other bits of metadata that should exist
 - Tags
-	- Create tag entries
+	+- Create tag entries
 	- Search tags
 - Edit
 	- Line editing

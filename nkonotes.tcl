@@ -62,7 +62,7 @@ proc nkonotes_add_metadata {index key value} {
 		puts "Metadata key \"$key\" contains whitespace. Trimming to end of first word."
 		set key [lindex $key 0]
 	}
-	if {![file exists ~/nkonotes.txt]} {puts "No NKONotes file detected. Creating file..."}
+	if {![file exists ~/nkonotes.txt]} {puts "No nkonotes_metadata file detected. Creating file..."}
 	set filehandle [open ~/nkonotes_metadata.txt a+]
 	puts $filehandle "$index $key $value"
 	close $filehandle
@@ -76,6 +76,18 @@ proc nkonotes_search_metadata_by_index {index} {
 		incr linecount
 	}
 	close $filehandle
+}
+
+proc nkonotes_add_tag {index input} {
+	if {![string equal [lindex $input 0] $input]} {
+		puts "Tag \"$input\" contains whitespace. Trimming to end of first word."
+		set key [lindex $input 0]
+	}
+	if {![file exists ~/nkonotes.txt]} {puts "No nkonotes_tags file detected. Creating file..."}
+	set filehandle [open ~/nkonotes_tags.txt a+]
+	puts $filehandle "$index $input"
+	close $filehandle
+	puts "Tag added: $index \"$input\"."
 }
 
 if {[string match [lindex $argv 0] "enter"]} {
@@ -99,4 +111,12 @@ if {[string match [lindex $argv 0] "search_metadata_by_index"]} {
 	puts "Enter note ID to find all related metadata (space separated):"
 	gets stdin input
 	nkonotes_search_metadata_by_index $input
+}
+
+if {[string match [lindex $argv 0] "tag"]} {
+	puts "Enter note ID to be tagged:"
+	gets stdin index
+	puts "Enter tag:"
+	gets stdin input
+	nkonotes_add_tag $index $input
 }
