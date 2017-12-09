@@ -12,10 +12,12 @@ TODO
 	- Find all notes matching multiple search terms
 - Metadata
 	+- Create metadata entries
-	+- Search metadata entries
+	+- List all metadata for a given note entry
+	- Search metadata
 	- Define other bits of metadata that should exist
 - Tags
 	+- Create tag entries
+	+- List all tags for a given note entry
 	- Search tags
 - Edit
 	- Line editing
