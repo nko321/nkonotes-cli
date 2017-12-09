@@ -90,6 +90,17 @@ proc nkonotes_add_tag {index input} {
 	puts "Tag added: $index \"$input\"."
 }
 
+proc nkonotes_search_tags_by_index {index} {
+	set filehandle [open ~/nkonotes_tags.txt r]
+	while { [gets $filehandle line] >= 0 } {
+		if {![string first $index [lindex $line 0]]} {puts $line}
+		incr linecount
+	}
+	close $filehandle
+}
+
+# Proc definitions done. On to the, uh... menu?
+
 if {[string match [lindex $argv 0] "enter"]} {
 	puts "Enter text for new note:"
 	gets stdin input
@@ -119,4 +130,10 @@ if {[string match [lindex $argv 0] "tag"]} {
 	puts "Enter tag:"
 	gets stdin input
 	nkonotes_add_tag $index $input
+}
+
+if {[string match [lindex $argv 0] "search_tags_by_index"]} {
+	puts "Enter note ID to find all related metadata (space separated):"
+	gets stdin index
+	nkonotes_search_tags_by_index $index
 }
