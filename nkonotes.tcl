@@ -99,6 +99,40 @@ proc nkonotes_search_tags_by_index {index} {
 	close $filehandle
 }
 
+proc nkonotes_search_metadata {input} {
+	set linecount 0
+
+	# End the script now if we don't even have a file to display from.
+	if {![file exists ~/nkonotes_metadata.txt] } {puts "No NKONotes metadata file detected."; exit;}
+
+	# Got a file to look at? Good, let's do it!
+	set filehandle [open ~/nkonotes_metadata.txt r]
+	while { [gets $filehandle line] >= 0 } {
+		foreach searchterm [lrange $input 0 [llength $input]] {
+			if {[string first $searchterm $line] ne -1} {puts $line}
+		}
+		incr linecount
+	}
+	close $filehandle
+}
+
+proc nkonotes_search_tags {input} {
+	set linecount 0
+
+	# End the script now if we don't even have a file to display from.
+	if {![file exists ~/nkonotes_tags.txt] } {puts "No NKONotes tags file detected."; exit;}
+
+	# Got a file to look at? Good, let's do it!
+	set filehandle [open ~/nkonotes_tags.txt r]
+	while { [gets $filehandle line] >= 0 } {
+		foreach searchterm [lrange $input 0 [llength $input]] {
+			if {[string first $searchterm $line] ne -1} {puts $line}
+		}
+		incr linecount
+	}
+	close $filehandle
+}
+
 # Proc definitions done. On to the, uh... menu?
 
 if {[string match [lindex $argv 0] "enter"]} {
@@ -112,10 +146,11 @@ if {[string match [lindex $argv 0] "search"]} {
 	gets stdin input
 	nkonotes_search $input
 }
+
 if {[string match [lindex $argv 0] "view"]} {
 	puts "Enter note IDs (space separated):"
 	gets stdin input
-	nkonotes_view
+	nkonotes_view $input
 }
 
 if {[string match [lindex $argv 0] "search_metadata_by_index"]} {
@@ -136,4 +171,16 @@ if {[string match [lindex $argv 0] "search_tags_by_index"]} {
 	puts "Enter note ID to find all related metadata (space separated):"
 	gets stdin index
 	nkonotes_search_tags_by_index $index
+}
+
+if {[string match [lindex $argv 0] "search_metadata"]} {
+	puts "Enter metadata search terms:"
+	gets stdin input
+	nkonotes_search_metadata $input
+}
+
+if {[string match [lindex $argv 0] "search_tags"]} {
+	puts "Enter tag search terms:"
+	gets stdin input
+	nkonotes_search_tags $input
 }
